@@ -4,14 +4,16 @@ CH552G can be replaced by CH551G and CH554G, in fact these models have the same 
 
 CH559G/CH558G/CH557G/CH556G can also be soldered on CH552Nano board. Six GPIOs will change in this case.
 
-|  PIN  | CH552G | CH549G |
-|:-----:|:------:|:------:|
-|   1   |  P3.2  |  P1.1  |
-|   7   |  P3.1  |  P3.0  |
-|   8   |  P3.0  |  P3.1  |
-|   9   |  P1.1  |  P3.4  |
-|  10   |  P3.3  |  P2.2  |
-|  11   |  P3.4  |  P2.4  |
+|   PIN   | CH552G |
+|:-------:|:------:|
+|   LED   |  P1.1  |
+|   NCS   |  P1.4  |
+|   TDI   |  P1.5  |
+|   TDO   |  P1.6  |
+|   TCK   |  P1.7  |
+|   TMS   |  P3.2  |
+|   ASDO  |  P3.3  |
+|   NCE   |  P3.4  |
 
 ![example](example.png "example")
 
