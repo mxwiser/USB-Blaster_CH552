@@ -23,4 +23,3 @@ CH552G can be replaced by CH551G and CH554G, in fact these models have the same 
 |   ASDO  |  P3.3  |
 |   NCE   |  P3.4  |
 
-![example](example.png "example")
