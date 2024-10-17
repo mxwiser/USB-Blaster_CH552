@@ -9,6 +9,7 @@ It works correctly in Linux and Windows with my limited testing(I am testing wit
 - Support AS mode.
 - Support hardware SPI now.
 
+#
 CH552G can be replaced by CH551G and CH554G, in fact these models have the same Die.
 
 |   PIN   | CH552G |
