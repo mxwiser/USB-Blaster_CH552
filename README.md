@@ -13,7 +13,7 @@ CH559G/CH558G/CH557G/CH556G can also be soldered on CH552Nano board. Six GPIOs w
 |  10   |  P3.3  |  P2.2  |
 |  11   |  P3.4  |  P2.4  |
 
-![example](image/example.png "example")
+![example](example.png "example")
 
 # USB-Blaster Firmware for "REV. C USB BLASTER" board with CH552G chip.
 
