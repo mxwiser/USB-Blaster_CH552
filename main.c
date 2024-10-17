@@ -23,6 +23,8 @@ SBIT(TDO, 0x90, 7);
 
 //uncomment to enable AS mode
 #define FTDI_AS_MODE
+//uncomment to enable Hardware SPI
+#define HARDWARE_SPI
 
 #ifdef FTDI_AS_MODE
 SBIT(NCS, 0x90,4);
@@ -586,6 +588,105 @@ __idata uint8_t transmit_buffer_in_offset;
 __idata uint8_t transmit_buffer_out_offset;
 __idata uint8_t send_len;
 
+
+
+uint8_t inline shift_read_on(){
+
+      #ifndef HARDWARE_SPI
+	  					TDI = P2B0;
+						P2B0 = TDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B1;
+						P2B1 = TDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B2;
+						P2B2 = TDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B3;
+						P2B3 = TDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B4;
+						P2B4 = TDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B5;
+						P2B5 = TDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B6;
+						P2B6 = TDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B7;
+						P2B7 = TDO;
+						TCK = 1;
+						TCK = 0;
+						return P2;
+		#else
+				CH554SPIMasterWrite(P2);
+				return SPI0_DATA;
+		#endif
+
+}
+
+
+uint8_t inline shift_AS_read_on(){
+
+						TDI = P2B0;
+						P2B0 = ASDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B1;
+						P2B1 = ASDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B2;
+						P2B2 = ASDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B3;
+						P2B3 = ASDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B4;
+						P2B4 = ASDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B5;
+						P2B5 = ASDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B6;
+						P2B6 = ASDO;
+						TCK = 1;
+						TCK = 0;
+
+						TDI = P2B7;
+						P2B7 = ASDO;
+						TCK = 1;
+						TCK = 0;
+	return P2;
+
+}
+
+
 //主函数
 void main()
 {
@@ -698,8 +799,12 @@ void main()
 					if (shift_en)
 					{
 						shift_count = P2 & 0x3f;
+						#ifdef FTDI_AS_MODE
 						if(NCS)
 							SPI0_CTRL = 0x60;
+						#else
+							SPI0_CTRL = 0x60;
+						#endif	
 					}
 					else if (read_en)
 					{
@@ -754,148 +859,25 @@ void main()
 						#ifdef FTDI_AS_MODE
 
 						if(!NCS){
-
-						TDI = P2B0;
-						P2B0 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B1;
-						P2B1 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B2;
-						P2B2 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B3;
-						P2B3 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B4;
-						P2B4 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B5;
-						P2B5 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B6;
-						P2B6 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B7;
-						P2B7 = ASDO;
-						TCK = 1;
-						TCK = 0;
-
-						transmit_buffer[transmit_buffer_in_offset] = P2;
+						transmit_buffer[transmit_buffer_in_offset] = shift_AS_read_on();
 						transmit_buffer_in_offset++;
 						transmit_buffer_in_offset &= 0x7f;
 					}else{
-
-
-
-						
-						CH554SPIMasterWrite(P2);
-						
-
-						transmit_buffer[transmit_buffer_in_offset] = SPI0_DATA ;
+						transmit_buffer[transmit_buffer_in_offset] =shift_read_on() ;
 						transmit_buffer_in_offset++;
 						transmit_buffer_in_offset &= 0x7f;
 					}
 						
 						#else
-
-
-						TDI = P2B0;
-						P2B0 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B1;
-						P2B1 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B2;
-						P2B2 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B3;
-						P2B3 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B4;
-						P2B4 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B5;
-						P2B5 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B6;
-						P2B6 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						TDI = P2B7;
-						P2B7 = TDO;
-						TCK = 1;
-						TCK = 0;
-
-						transmit_buffer[transmit_buffer_in_offset] = P2;
+						transmit_buffer[transmit_buffer_in_offset] = shift_read_on();
 						transmit_buffer_in_offset++;
 						transmit_buffer_in_offset &= 0x7f;
-
 						#endif
 					}
 					else
 					{
 
-						// TDI = P2B0;
-						// TCK = 1;
-						// TCK = 0;
-
-						// TDI = P2B1;
-						// TCK = 1;
-						// TCK = 0;
-
-						// TDI = P2B2;
-						// TCK = 1;
-						// TCK = 0;
-
-						// TDI = P2B3;
-						// TCK = 1;
-						// TCK = 0;
-
-						// TDI = P2B4;
-						// TCK = 1;
-						// TCK = 0;
-
-						// TDI = P2B5;
-						// TCK = 1;
-						// TCK = 0;
-
-						// TDI = P2B6;
-						// TCK = 1;
-						// TCK = 0;
-
-						// TDI = P2B7;
-						// TCK = 1;
-						// TCK = 0;
-						
-						CH554SPIMasterWrite(P2); 
+						shift_read_on();
 						
 					}
 				}
