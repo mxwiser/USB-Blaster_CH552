@@ -2,8 +2,6 @@ A low cost small size USB dev board based on WCH CH552G.
 
 CH552G can be replaced by CH551G and CH554G, in fact these models have the same Die.
 
-CH559G/CH558G/CH557G/CH556G can also be soldered on CH552Nano board. Six GPIOs will change in this case.
-
 |   PIN   | CH552G |
 |:-------:|:------:|
 |   LED   |  P1.1  |
